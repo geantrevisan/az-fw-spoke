@@ -48,7 +48,15 @@ resource "azurerm_linux_virtual_machine" "spoke2-vm" {
   }
 }
 
+resource "time_sleep" "wait_90_seconds" {
+  depends_on = [azurerm_linux_virtual_machine.spoke2-vm]
+
+  create_duration = "90s"
+}
+
 resource "azurerm_virtual_machine_extension" "spoke2-run" {
+  depends_on=[time_sleep.wait_90_seconds]
+
   name                 = "spoke2-run"
   virtual_machine_id   = azurerm_linux_virtual_machine.spoke2-vm.id
   publisher            = "Microsoft.Azure.Extensions"
@@ -57,7 +65,7 @@ resource "azurerm_virtual_machine_extension" "spoke2-run" {
 
   settings = <<SETTINGS
  {
-  "commandToExecute": "wget https://raw.githubusercontent.com/geantrevisan/az-fw-spoke/main/extra/run.sh; sudo chmod 777 run.sh;./run.sh;echo running"
+  "commandToExecute": "wget https://raw.githubusercontent.com/geantrevisan/az-fw-spoke/main/extra/run.sh; sudo chmod 777 run.sh;./run.sh;"
  }
 SETTINGS
 

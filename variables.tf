@@ -1,7 +1,7 @@
 variable "subscription_id" {
   description = "ID da Sub."
   type = string
-  #default = ""
+  default = "5f11dfa5-0332-41c3-9a2d-4a44cfd77f79"
 }
 
 variable "name" {

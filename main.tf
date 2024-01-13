@@ -108,7 +108,7 @@ resource "azurerm_network_security_group" "spoke2-nsg" {
       destination_port_ranges                    = []
       direction                                  = "Inbound"
       name                                       = "entrada-apache2"
-      priority                                   = 100
+      priority                                   = 200
       protocol                                   = "Tcp"
       source_address_prefix                      = "*"
       source_address_prefixes                    = []
@@ -126,7 +126,7 @@ resource "azurerm_network_security_group" "spoke2-nsg" {
       destination_port_ranges                    = []
       direction                                  = "Inbound"
       name                                       = "entrada-ssh"
-      priority                                   = 200
+      priority                                   = 201
       protocol                                   = "Tcp"
       source_address_prefix                      = "*"
       source_address_prefixes                    = []
@@ -144,8 +144,26 @@ resource "azurerm_network_security_group" "spoke2-nsg" {
       destination_port_ranges                    = []
       direction                                  = "Inbound"
       name                                       = "denyTcpAll"
-      priority                                   = 201
+      priority                                   = 202
       protocol                                   = "Tcp"
+      source_address_prefix                      = "*"
+      source_address_prefixes                    = []
+      source_application_security_group_ids      = []
+      source_port_range                          = "*"
+      source_port_ranges                         = []
+    },    
+    {
+      access                                     = "Allow"
+      description                                = ""
+      destination_address_prefix                 = "*"
+      destination_address_prefixes               = []
+      destination_application_security_group_ids = []
+      destination_port_range                     = "*"
+      destination_port_ranges                    = []
+      direction                                  = "Outbound"
+      name                                       = "Saida"
+      priority                                   = 200
+      protocol                                   = "*"
       source_address_prefix                      = "*"
       source_address_prefixes                    = []
       source_application_security_group_ids      = []
